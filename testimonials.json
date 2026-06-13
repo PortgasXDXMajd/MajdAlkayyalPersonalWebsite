@@ -1,0 +1,26 @@
+[
+  {
+    "quote": "Majd combines deep technical rigor with rare clarity of communication. He turned an ambiguous problem into a production system the whole team could rally behind.",
+    "name": "Anna K.",
+    "role": "Engineering Manager",
+    "company": "KPMG Deutschland"
+  },
+  {
+    "quote": "One of the strongest engineers I've worked with on LLM systems — he moves seamlessly between research ideas and shippable infrastructure.",
+    "name": "Daniel R.",
+    "role": "Research Collaborator",
+    "company": "TU Munich"
+  },
+  {
+    "quote": "Majd led our platform rebuild end to end. Calm under pressure, decisive on architecture, and genuinely invested in the people he leads.",
+    "name": "Omar S.",
+    "role": "Product Lead",
+    "company": "TelyPay"
+  },
+  {
+    "quote": "He raised the engineering bar for everyone around him — thoughtful code reviews, solid system design, and dependable delivery every sprint.",
+    "name": "Lena F.",
+    "role": "Senior Engineer",
+    "company": "PwC Deutschland"
+  }
+]
