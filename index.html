@@ -390,15 +390,44 @@ h2.tight{margin-bottom:8px;}
 .proj-link:hover{gap:9px;}
 
 /* ── TESTIMONIALS ───────────────────────────────────────────────────── */
+/* full-bleed single-lane marquee: an endless drift of voices that
+   pauses under the pointer, spotlighting the card being read */
+.marquee-bleed{
+  width:100vw;margin-left:calc(50% - 50vw);
+  padding:10px 0 16px; /* room for hover lift so cards don't clip */
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+}
+.marquee-row{overflow:hidden;scrollbar-width:none;}
+.marquee-row::-webkit-scrollbar{display:none;height:0;}
+.marquee-track{
+  display:flex;width:max-content;will-change:transform;
+  animation:marqueeScroll var(--marquee-dur,96s) linear infinite;
+}
+.marquee-row:hover .marquee-track,
+.marquee-row:focus-within .marquee-track{animation-play-state:paused;}
+.marquee-group{display:flex;align-items:stretch;gap:24px;padding-right:24px;flex:none;}
+@keyframes marqueeScroll{to{transform:translateX(-50%)}}
 .test-card{
-  display:flex;flex-direction:column;margin:0;padding:28px;border-radius:var(--r-lg);
-  background:var(--bg2);border:1px solid var(--border);box-shadow:var(--card-shadow);
+  display:flex;flex-direction:column;margin:0;padding:28px 30px;border-radius:var(--r-lg);
+  background:var(--bg2);border:1px solid var(--border);
+  box-shadow:var(--card-shadow),inset 0 1px 0 rgba(255,255,255,.05);
   transition:transform .35s var(--spring),border-color .25s var(--ease),background .55s var(--ease);
 }
-.test-card:hover{transform:translateY(-4px);border-color:var(--borderStrong);}
+.marquee-row .test-card{
+  width:min(440px,85vw);flex:none;opacity:.88;
+  transition:transform .45s var(--spring),border-color .3s var(--ease),
+             background .55s var(--ease),opacity .45s var(--ease);
+}
+/* spotlight: pointing inside the lane gently recedes the crowd,
+   the card being read comes forward at full strength */
+.marquee-row:hover .test-card{opacity:.55;}
+.marquee-row .test-card:hover{opacity:1;transform:translateY(-5px) scale(1.012);}
+.marquee-row blockquote{font-size:14.5px;line-height:1.7;margin-bottom:20px;}
+.test-card:hover{border-color:var(--borderStrong);}
 .quote-mark{
-  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:46px;
-  line-height:.6;height:24px;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:40px;
+  line-height:.6;height:22px;margin-bottom:14px;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
@@ -406,16 +435,24 @@ blockquote{
   margin:0 0 22px;font-size:16px;line-height:1.62;
   color:var(--fg);opacity:.9;flex:1;text-wrap:pretty;
 }
-figcaption{display:flex;align-items:center;gap:13px;}
-.avatar{
-  width:44px;height:44px;border-radius:50%;flex:none;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
-  color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));
-  transition:background .55s var(--ease);
+figcaption{
+  display:flex;align-items:center;gap:13px;
+  padding-top:18px;border-top:1px solid var(--border);
+  transition:border-color .55s var(--ease);
 }
-.avatar-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--fg);}
-.avatar-role{font-size:13px;color:var(--muted);}
+.avatar{
+  width:42px;height:42px;border-radius:50%;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;
+  color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 0 2px var(--bg2),0 0 0 3px var(--border);
+  transition:background .55s var(--ease),box-shadow .55s var(--ease);
+}
+.avatar-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--fg);letter-spacing:-.01em;}
+.avatar-role{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;
+  color:var(--muted);margin-top:3px;
+}
 
 /* ── PUBLICATION ────────────────────────────────────────────────────── */
 .pub-card{
@@ -548,6 +585,8 @@ footer h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:14px;letter-spacing:-.0
   main.switching{transform:none;}
   .meter-fill{transition:background .55s var(--ease);}
   *{scroll-behavior:auto;}
+  /* marquee intentionally keeps drifting even under reduced motion —
+     it pauses on hover, and its slow linear pan has no parallax/zoom */
 }
 @media(prefers-reduced-transparency:reduce){
   nav{background:var(--bg2);backdrop-filter:none;-webkit-backdrop-filter:none;}
@@ -662,11 +701,12 @@ footer h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:14px;letter-spacing:-.0
   </section>
 
   <!-- TESTIMONIALS -->
-  <!-- <section id="testimonials">
+  <section id="testimonials">
     <div class="eyebrow">TESTIMONIALS</div>
-    <h2>What people say</h2>
-    <div class="two-col" id="test-grid"></div>
-  </section> -->
+    <h2 class="tight">What people say</h2>
+    <p class="section-sub">Feedback from colleagues I've built with. Hover a card to pause and read.</p>
+    <div class="marquee-bleed rv" id="test-marquee"></div>
+  </section>
 
   <!-- RESEARCH -->
   <section id="research">
@@ -919,10 +959,14 @@ const PROJECTS = [
 ];
 
 const DEFAULT_TESTIMONIALS = [
-  { quote:"Majd combines deep technical rigor with rare clarity of communication. He turned an ambiguous problem into a production system the whole team could rally behind.", name:'Anna K.', role:'Engineering Manager', company:'KPMG Deutschland' },
-  { quote:"A pleasure to work with on LLM systems; he moves comfortably between research ideas and working infrastructure.", name:'Daniel R.', role:'Research Collaborator', company:'TU Munich' },
-  { quote:"Majd led our platform rebuild end to end. Calm under pressure, decisive on architecture, and genuinely invested in the people he leads.", name:'Omar S.', role:'Product Lead', company:'TelyPay' },
-  { quote:"Thoughtful code reviews, solid system design, and dependable delivery every sprint.", name:'Lena F.', role:'Senior Engineer', company:'PwC Deutschland' }
+  { quote:"Majd combines deep technical expertise with outstanding ownership and leadership. He drives key features end to end, not just on the technical side, but by leading business discussions and presenting progress to stakeholders himself. His knack for connecting technical work with business value, plus his forward-thinking push into agentic AI, makes him a cornerstone of the team.", name:'Christian Schubert', role:'', company:'KPMG' },
+  { quote:"An absolute top performer with consistently high output and very strong quality. He writes clean, well-structured, maintainable code, and his thorough code reviews visibly raise the level of the whole team. In practice he already operates as a tech lead: he makes technical decisions, gives direction, and is the central point of contact for the hardest topics.", name:'Raymo Porzig', role:'', company:'KPMG' },
+  { quote:"Majd is one of the few go-to people for the most demanding changes and the most urgent issues. He is extremely fast and comes up with creative solutions in an instant. On several occasions he worked directly with the client to define and implement complex requirements on his own, presenting pros and cons so effectively that the client could quickly make decisions everyone was happy with.", name:'Jacek Rusinek', role:'Senior Business Analyst', company:'KPMG' },
+  { quote:"When Majd speaks in meetings, it feels like a much more senior person is present. He carries himself professionally even with challenging stakeholders, comes prepared, thinks outside the box, and suggests creative solutions. He has a maturity, talent, and sense of responsibility that is rare to see.", name:'Fabiana Vidal Leao de Aquino', role:'', company:'KPMG' },
+  { quote:"Majd stands out for how well he understands both the fine details and the broader system landscape. That balance lets him navigate intricate data structures and deliver high-quality solutions, while confidently owning features and presenting his work directly to business stakeholders.", name:'Robert Gräfe', role:'', company:'KPMG' },
+  { quote:"Majd brings remarkable value through strong technical expertise, clear communication, and a positive, engaging personality. He has a real talent for explaining complex concepts in a way anyone can follow, always keeps solutions maintainable and scalable, and is quick to support others. A dependable teammate and a natural mentor.", name:'Gitta Ekaputeri', role:'', company:'KPMG' },
+  { quote:"Majd tackles complex tasks without hesitation and thinks about potential risks from the earliest stages of development. He uses modern problem-solving techniques, is open to exploring new technologies, and genuinely listens to different viewpoints, which lets him land on the best solution rather than just his own idea.", name:'Pavel Golitsyn', role:'', company:'KPMG' },
+  { quote:"Majd is very strong with abstract data structures and database topics. He thinks conceptually, translates complex requirements into clean, structured solutions, and brings real clarity to any discussion about data models or technical concepts.", name:'Stavros Giannis', role:'', company:'KPMG' }
 ];
 
 // ── STATE ──────────────────────────────────────────────────────────────
@@ -1006,7 +1050,7 @@ function applyOrder() {
   document.getElementById('tshape').style.order      = o.tshape;
   document.getElementById('experience').style.order  = o.experience;
   document.getElementById('projects').style.order    = o.projects;
-  // document.getElementById('testimonials').style.order= o.testimonials;
+  document.getElementById('testimonials').style.order= o.testimonials;
   document.getElementById('research').style.order    = o.research;
   document.getElementById('publication').style.order = o.publication;
   document.getElementById('teaching').style.order    = o.teaching;
@@ -1104,23 +1148,32 @@ function renderProjects() {
 
 // ── RENDER TESTIMONIALS ────────────────────────────────────────────────
 function renderTestimonials() {
-  const grid = document.getElementById('test-grid');
-  if (!grid) return;
-  grid.innerHTML = testimonials.map((tm, i) => {
+  const wrap = document.getElementById('test-marquee');
+  if (!wrap) return;
+  const card = tm => {
     const initials = (tm.name||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     return `
-    <figure class="test-card glow-card rv" style="--i:${i % 2}">
+    <figure class="test-card glow-card">
       <div class="quote-mark">&ldquo;</div>
       <blockquote>${tm.quote}</blockquote>
       <figcaption>
         <div class="avatar">${initials}</div>
         <div>
           <div class="avatar-name">${tm.name}</div>
-          <div class="avatar-role">${tm.role} · ${tm.company}</div>
+          <div class="avatar-role">${[tm.role, tm.company].filter(Boolean).join(' · ')}</div>
         </div>
       </figcaption>
     </figure>`;
-  }).join('');
+  };
+  const cards = testimonials.map(card).join('');
+  const dur = Math.max(48, testimonials.length * 12);
+  wrap.innerHTML = `
+    <div class="marquee-row">
+      <div class="marquee-track" style="--marquee-dur:${dur}s">
+        <div class="marquee-group">${cards}</div>
+        <div class="marquee-group" aria-hidden="true">${cards}</div>
+      </div>
+    </div>`;
   refreshReveals();
 }
 
@@ -1236,7 +1289,7 @@ function init() {
   renderExperience();
   renderResearch();
   renderProjects();
-  //renderTestimonials();
+  renderTestimonials();
   renderTeaching();
   renderEducation();
   renderAwards();

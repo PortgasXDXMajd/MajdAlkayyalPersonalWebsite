@@ -1,26 +1,50 @@
 [
   {
-    "quote": "Majd combines deep technical rigor with rare clarity of communication. He turned an ambiguous problem into a production system the whole team could rally behind.",
-    "name": "Anna K.",
-    "role": "Engineering Manager",
-    "company": "KPMG Deutschland"
+    "quote": "Majd combines deep technical expertise with outstanding ownership and leadership. He drives key features end to end, not just on the technical side, but by leading business discussions and presenting progress to stakeholders himself. His knack for connecting technical work with business value, plus his forward-thinking push into agentic AI, makes him a cornerstone of the team.",
+    "name": "Christian Schubert",
+    "role": "",
+    "company": "KPMG"
   },
   {
-    "quote": "A pleasure to work with on LLM systems; he moves comfortably between research ideas and working infrastructure.",
-    "name": "Daniel R.",
-    "role": "Research Collaborator",
-    "company": "TU Munich"
+    "quote": "An absolute top performer with consistently high output and very strong quality. He writes clean, well-structured, maintainable code, and his thorough code reviews visibly raise the level of the whole team. In practice he already operates as a tech lead: he makes technical decisions, gives direction, and is the central point of contact for the hardest topics.",
+    "name": "Raymo Porzig",
+    "role": "",
+    "company": "KPMG"
   },
   {
-    "quote": "Majd led our platform rebuild end to end. Calm under pressure, decisive on architecture, and genuinely invested in the people he leads.",
-    "name": "Omar S.",
-    "role": "Product Lead",
-    "company": "TelyPay"
+    "quote": "Majd is one of the few go-to people for the most demanding changes and the most urgent issues. He is extremely fast and comes up with creative solutions in an instant. On several occasions he worked directly with the client to define and implement complex requirements on his own, presenting pros and cons so effectively that the client could quickly make decisions everyone was happy with.",
+    "name": "Jacek Rusinek",
+    "role": "Senior Business Analyst",
+    "company": "KPMG"
   },
   {
-    "quote": "Thoughtful code reviews, solid system design, and dependable delivery every sprint.",
-    "name": "Lena F.",
-    "role": "Senior Engineer",
-    "company": "PwC Deutschland"
+    "quote": "When Majd speaks in meetings, it feels like a much more senior person is present. He carries himself professionally even with challenging stakeholders, comes prepared, thinks outside the box, and suggests creative solutions. He has a maturity, talent, and sense of responsibility that is rare to see.",
+    "name": "Fabiana Vidal Leao de Aquino",
+    "role": "",
+    "company": "KPMG"
+  },
+  {
+    "quote": "Majd stands out for how well he understands both the fine details and the broader system landscape. That balance lets him navigate intricate data structures and deliver high-quality solutions, while confidently owning features and presenting his work directly to business stakeholders.",
+    "name": "Robert Gräfe",
+    "role": "",
+    "company": "KPMG"
+  },
+  {
+    "quote": "Majd brings remarkable value through strong technical expertise, clear communication, and a positive, engaging personality. He has a real talent for explaining complex concepts in a way anyone can follow, always keeps solutions maintainable and scalable, and is quick to support others. A dependable teammate and a natural mentor.",
+    "name": "Gitta Ekaputeri",
+    "role": "",
+    "company": "KPMG"
+  },
+  {
+    "quote": "Majd tackles complex tasks without hesitation and thinks about potential risks from the earliest stages of development. He uses modern problem-solving techniques, is open to exploring new technologies, and genuinely listens to different viewpoints, which lets him land on the best solution rather than just his own idea.",
+    "name": "Pavel Golitsyn",
+    "role": "",
+    "company": "KPMG"
+  },
+  {
+    "quote": "Majd is very strong with abstract data structures and database topics. He thinks conceptually, translates complex requirements into clean, structured solutions, and brings real clarity to any discussion about data models or technical concepts.",
+    "name": "Stavros Giannis",
+    "role": "",
+    "company": "KPMG"
   }
 ]
