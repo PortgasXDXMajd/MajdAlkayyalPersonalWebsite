@@ -700,6 +700,14 @@ footer h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:14px;letter-spacing:-.0
     <div class="two-col" id="proj-grid"></div>
   </section>
 
+  <!-- SIDE PROJECTS -->
+  <section id="sideprojects">
+    <div class="eyebrow">WEEKEND BUILDS</div>
+    <h2 class="tight">Side Projects</h2>
+    <p class="section-sub">Things I build on evenings and weekends, mostly to solve a problem my family, friends or I actually had.</p>
+    <div class="two-col" id="side-grid"></div>
+  </section>
+
   <!-- TESTIMONIALS -->
   <section id="testimonials">
     <div class="eyebrow">TESTIMONIALS</div>
@@ -839,8 +847,8 @@ const STATS = {
 };
 
 const ORDER = {
-  experience: { tshape:1,experience:2,projects:3,testimonials:4,research:5,publication:6,teaching:7,education:8,awards:9 },
-  academic:   { tshape:1,education:2,publication:3,research:4,teaching:5,experience:6,projects:7,testimonials:8,awards:9 }
+  experience: { tshape:1,experience:2,projects:3,sideprojects:4,testimonials:5,research:6,publication:7,teaching:8,education:9,awards:10 },
+  academic:   { tshape:1,education:2,publication:3,research:4,teaching:5,experience:6,projects:7,sideprojects:8,testimonials:9,awards:10 }
 };
 
 const BREADTH = [
@@ -942,10 +950,6 @@ const PROJECTS = [
   { title:'CreateData4AI · Annotation Platform', org:'Fusionbase × TUM', date:'2023 – 2024',
     desc:'A collaborative, data-centric annotation platform with real-time multi-user labeling and a distributed embedding pipeline that reduced dataset processing from 6 days to 5 minutes.',
     tags:['Next.js','FastAPI','Ray','MongoDB'], links:[] },
-  { title:'AI Debate Simulator', org:'Side Project', date:'2025',
-    desc:'Two AI models debate any topic, streamed live, while a third model judges clarity, logic, evidence, rebuttal quality and civility.',
-    tags:['FastAPI','Streamlit','LLM','Docker'],
-    links:[{ label:'GitHub', url:'https://github.com/PortgasXDXMajd/AI-Debate-Simulator' }] },
   { title:'Open Banking Aggregator & Financial NLP', org:'Maaly (TelyPay)', date:'2022 – 2024',
     desc:"Oman's first Open Banking API integration plus an NLP SMS parser for transaction classification, running on AWS behind the Maaly fintech apps.",
     tags:['AWS','Python','NLP','Fintech'], links:[] },
@@ -956,6 +960,30 @@ const PROJECTS = [
       { label:'App Store', url:'https://apps.apple.com/us/app/dar-al-atta/id1561519313' },
       { label:'Google Play', url:'https://play.google.com/store/apps/details?id=om.webware.dar_al_atta' }
     ] }
+];
+
+// Links with an empty url are hidden until one is filled in.
+const SIDE_PROJECTS = [
+  { title:'Passreif · Citizenship Exam App', org:'iOS & Android', date:'2026',
+    desc:'A study app for the German Einbürgerungstest (all 460 official questions). One Flutter codebase for both stores, a pure-Dart study engine that holds every rule, nine UI locales including Arabic, and bundled SQLite content: zero network requests, no accounts, progress never leaves the device.',
+    tags:['Flutter','Dart','SQLite','i18n','Offline-first'],
+    links:[{ label:'Website', url:'' },{ label:'App Store', url:'' },{ label:'Google Play', url:'' }] },
+  { title:'TapReview · NFC Guest Pages', org:'SaaS', date:'2026',
+    desc:'NFC tags that open a branded page per business: Google reviews, menus, Wi-Fi, contact and dine-in ordering pushed to the ready2order POS. Admin panel with per-business feature toggles and zod-validated config, a no-login staff console, and an MCP server for operations.',
+    tags:['Next.js','Supabase','Postgres','MCP','Tailwind'],
+    links:[{ label:'Live', url:'' }] },
+  { title:'TradeBot v2 · Multi-Agent Trading', org:'In progress', date:'2026',
+    desc:'A local-first automated trading system: deterministic agents (strategy, allocator, risk, execution, ledger) talk over an append-only event log on Redis Streams, while an LLM reviewer can only veto. Every decision is stored and replayable; the bot prepares money transfers but never moves money itself.',
+    tags:['Python','FastAPI','Postgres','Redis Streams','Docker'],
+    links:[{ label:'GitHub', url:'' }] },
+  { title:'telc B1 Prep · German Exam Coach', org:'Personal', date:'2026',
+    desc:'A zero-install study app for the telc Deutsch B1 exam: a dated plan of 162 lessons, 1,600+ spaced-repetition cards, 21 listening sets and self-grading drills. Plain JavaScript that runs from a file, with progress kept in localStorage and IndexedDB.',
+    tags:['JavaScript','IndexedDB','Spaced Repetition','Static'],
+    links:[{ label:'Live', url:'' }] },
+  { title:'AI Debate Simulator', org:'Side Project', date:'2025',
+    desc:'Two AI models debate any topic, streamed live, while a third model judges clarity, logic, evidence, rebuttal quality and civility.',
+    tags:['FastAPI','Streamlit','LLM','Docker'],
+    links:[{ label:'GitHub', url:'https://github.com/PortgasXDXMajd/AI-Debate-Simulator' }] }
 ];
 
 const DEFAULT_TESTIMONIALS = [
@@ -1050,6 +1078,7 @@ function applyOrder() {
   document.getElementById('tshape').style.order      = o.tshape;
   document.getElementById('experience').style.order  = o.experience;
   document.getElementById('projects').style.order    = o.projects;
+  document.getElementById('sideprojects').style.order= o.sideprojects;
   document.getElementById('testimonials').style.order= o.testimonials;
   document.getElementById('research').style.order    = o.research;
   document.getElementById('publication').style.order = o.publication;
@@ -1129,7 +1158,12 @@ function renderResearch() {
 
 // ── RENDER PROJECTS ────────────────────────────────────────────────────
 function renderProjects() {
-  document.getElementById('proj-grid').innerHTML = PROJECTS.map((p, i) => `
+  document.getElementById('proj-grid').innerHTML = PROJECTS.map(projCard).join('');
+  document.getElementById('side-grid').innerHTML = SIDE_PROJECTS.map(projCard).join('');
+}
+
+function projCard(p, i) {
+  return `
     <div class="proj-card glow-card rv" style="--i:${i % 2}">
       <div class="proj-top">
         <span class="proj-org">${p.org}</span>
@@ -1138,12 +1172,12 @@ function renderProjects() {
       <h3>${p.title}</h3>
       <p class="proj-desc">${p.desc}</p>
       <div class="tags proj-tags">${p.tags.map(t => `<span class="tag proj-tag">${t}</span>`).join('')}</div>
-      <div class="proj-links">${p.links.map(lk => `
+      <div class="proj-links">${p.links.filter(lk => lk.url).map(lk => `
         <a href="${lk.url}" target="_blank" rel="noopener" class="proj-link">
           ${lk.label}
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg>
         </a>`).join('')}</div>
-    </div>`).join('');
+    </div>`;
 }
 
 // ── RENDER TESTIMONIALS ────────────────────────────────────────────────
